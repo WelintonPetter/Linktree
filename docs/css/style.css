@@ -28,7 +28,7 @@ body{
 }
 
 .content{
-    border:4px solid white;
+    border:5px solid white;
     width: 100%;
     border-radius: 4px;
     padding: 100px 40px;
@@ -82,10 +82,13 @@ a:hover{
 
     align-self: center;
     color:#ffffff;
+    font-size: 10px;
     padding-top:30px ;
     position: absolute;
     bottom:10px;
 }
 span{
     font-weight: 600;
+    text-shadow: 4px 2px 4px black ;
+    font-size: 13px;
 }

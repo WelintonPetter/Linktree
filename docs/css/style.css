@@ -78,3 +78,14 @@ a:hover{
 
 
 }
+.rodape{
+
+    align-self: center;
+    color:#ffffff;
+    padding-top:30px ;
+    position: absolute;
+    bottom:10px;
+}
+span{
+    font-weight: 600;
+}

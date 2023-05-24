@@ -80,7 +80,7 @@ a:hover{
 
 }
 .rodape{
-
+    border: ;
     align-self: center;
     color:#ffffff;
     font-size: 10px;
@@ -89,6 +89,7 @@ a:hover{
     bottom:10px;
 }
 span{
+   
     font-weight: 600;
     text-shadow: 4px 2px 4px black ;
     font-size: 13px;

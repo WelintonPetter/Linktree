@@ -13,7 +13,9 @@
 }
 body{
     height:100vh ;
-    background: linear-gradient(to bottom, #f7e330, #f17130, #e42d1d);
+    background: linear-gradient(90deg,
+    rgba(65,184,131,1)0%,
+    rgba(0,212,255,1)100%);
     background-repeat: no-repeat ;   
     display: flex;
     justify-content: center;

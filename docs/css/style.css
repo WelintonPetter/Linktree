@@ -47,7 +47,7 @@ body{
 .avatar{
     width: 160px;
     position: absolute;
-    top:-80px;
+    top:-60px;
     align-self: center;
     filter: drop-shadow(4px 4px 4px rgba(0,0,0,0.90));
 }

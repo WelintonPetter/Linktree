@@ -128,3 +128,8 @@ span{
         margin-bottom: 16px;
      } 
 }   
+@media screen and (max-width: 600px){
+    .container{
+        width: 60%;
+     } 
+}   

@@ -108,8 +108,8 @@ span{
 @media screen and (max-width: 600px){
     .avatar{
     width: 60px;
-    left:25px;    
-    top:100px;
+    left:15px;    
+    top:150px;
     }
 }
 @media screen and (max-width: 600px){
@@ -130,6 +130,6 @@ span{
 }   
 @media screen and (max-width: 600px){
     .container{
-        width: 70%;
+        width: 90%;
      } 
 }   

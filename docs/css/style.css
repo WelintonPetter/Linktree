@@ -84,12 +84,17 @@ a:hover{
 
 
 }
+.content{
+    padding-bottom: 10px;
+   
+}
 .rodape{
+
     align-self: center;
     color:#ffffff;
     font-size: 10px;
-    padding-top:30px ;
-    position: absolute;
+    padding-top:10px ;
+    position: flex;
     bottom:10px;
 }
 span{
@@ -115,10 +120,9 @@ span{
 @media screen and (max-width: 600px){
     h1{
         
-    font-size: 25px;
+    font-size: 30px;
     text-align: center;
     margin-bottom: 16px;
-    color:red;
     }
 }
 @media screen and (max-width: 600px){

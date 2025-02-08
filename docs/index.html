@@ -1,71 +1,253 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Welinton_Petter">
+    <meta name="description" content="Links importantes de Welinton Petter">
     <link rel="shortcut icon" href="icon/icon.ico">
-    <title>Meus Links</title>
+    <title>Welinton Petter | Links</title>
     <link rel="stylesheet" href="css/style.css">
-
+    <!-- Fonte do Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <canvas id="snakeCanvas" style="position: fixed; top: 0; left: 0; z-index: 1000; display: none;"></canvas>
+
     <div class="container">
-        <div class="content">
+        <main class="content">
             <img src="img/avatar.png" alt="Foto de Perfil" class="avatar">
 
-            <div>
+            <header class="profile-info">
                 <h1>Welinton Petter</h1>
-                <h2>Estudante de Programação </h2>
+                <h2>Estudante de Programação</h2>
+            </header>
 
-            </div>
-            <div class="links">
-                <a href="https://www.instagram.com/welinton.petter">Instagram
-                    <img src="icon/" alt="Instagram"></a>
-                <a href="https://api.whatsapp.com/send?phone=5545991337442&text=Ol%C3%A1,%20Estou%20vindo%20pelo%20seu%20projeto%20do%20Linktree.%F0%9F%98%84">Whatsapp
-                    <img src="icon/whatsapp.svg" alt="Numero whatsapp"></a>
-                <a href="https://www.linkedin.com/in/welintonpetter/">Linkedin 
-                    <img src="icon/linkedin.svg" alt="linkedin"></a>
-                <a href="mailto:Welintonpetter13@gmail.com">Email
-                    <img src="icon/email.svg" alt="Email"></a>
-                <a href="https://github.com/WelintonPetter">Github
-                    <img src="icon/github.svg" alt="github"></a>
-                    <a href="https://welintonpetter.github.io/PomodoroClock/">Pomodoro
-                        <img src="icon/tecnica-pomodoro-_1_.svg" alt="Pomodoro"></a>
-                <a href="https://github.com/WelintonPetter">Github
-                    <img src="icon/github.svg" alt="github"></a>
-                <a href="https://welintonpetter.github.io/Petter_List/">Anotações
-                    <img src="icon/anotacao.svg" alt="Anotações"></a>   
-                    
-                    
-                    
-                <div class="rodape">
-                
-                    <p> Desenvolvido por <span>"Welinton Petter"</span></p>
-                    <p>Copyright © 2024</p>
-                </div>               
-            </div>
-            
-           
+            <nav class="links">
+                <a href="https://www.instagram.com/welinton.petter" class="link-card">
+                    <img src="icon/instagram.svg" alt="Instagram">
+                    <span>Instagram</span>
+                </a>
+                <a href="https://api.whatsapp.com/send?phone=5545991337442&text=Ol%C3%A1,%20Estou%20vindo%20pelo%20seu%20projeto%20do%20Linktree.%F0%9F%98%84" class="link-card">
+                    <img src="icon/whatsapp.svg" alt="WhatsApp">
+                    <span>WhatsApp</span>
+                </a>
+                <a href="https://www.linkedin.com/in/welintonpetter/" class="link-card">
+                    <img src="icon/linkedin.svg" alt="LinkedIn">
+                    <span>LinkedIn</span>
+                </a>
+                <a href="mailto:Welintonpetter13@gmail.com" class="link-card">
+                    <img src="icon/email.svg" alt="Email">
+                    <span>Email</span>
+                </a>
+                <a href="https://github.com/WelintonPetter" class="link-card">
+                    <img src="icon/github.svg" alt="GitHub">
+                    <span>GitHub</span>
+                </a>
+                <a href="https://welintonpetter.github.io/PomodoroClock/" class="link-card">
+                    <img src="icon/tecnica-pomodoro-_1_.svg" alt="Pomodoro">
+                    <span>Pomodoro</span>
+                </a>
+                <a href="https://welintonpetter.github.io/Petter_List/" class="link-card">
+                    <img src="icon/anotacao.svg" alt="Anotações">
+                    <span>Anotações</span>
+                </a>
+            </nav>
 
-        </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <footer class="rodape">
+                <p>Desenvolvido por <span>Welinton Petter</span></p>
+                <p>Copyright © 2024</p>
+            </footer>
+        </main>
     </div>
+
+    <script>
+    const canvas = document.getElementById('snakeCanvas');
+    const ctx = canvas.getContext('2d');
+
+    let snake = [{x: 10, y: 10}];
+    let food = {x: 15, y: 15};
+    let direction = 'right';
+    let gameStarted = false;
+    let gameLoop;
+    let score = 0;
+
+    function initGame() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        gameStarted = true;
+        score = 0;
+        snake = [{x: 10, y: 10}];
+        generateFood();
+        if (gameLoop) clearInterval(gameLoop);
+        gameLoop = setInterval(updateGame, 100);
+        canvas.style.display = 'block';
+    }
+
+    function generateFood() {
+        food = {
+            x: Math.floor(Math.random() * (canvas.width / 20)),
+            y: Math.floor(Math.random() * (canvas.height / 20))
+        };
+    }
+
+    function drawSquare(x, y, color) {
+        ctx.fillStyle = color;
+        ctx.fillRect(x * 20, y * 20, 18, 18);
+    }
+
+    function updateGame() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Mover cobra
+        let head = {x: snake[0].x, y: snake[0].y};
+        switch(direction) {
+            case 'up': head.y--; break;
+            case 'down': head.y++; break;
+            case 'left': head.x--; break;
+            case 'right': head.x++; break;
+        }
+        
+        // Verificar colisão com paredes (modificado para finalizar o jogo)
+        if (head.x < 0 || head.x >= canvas.width / 20 || head.y < 0 || head.y >= canvas.height / 20) {
+            gameOver('Você bateu na parede!');
+            return;
+        }
+        
+        // Verificar colisão com comida
+        if (head.x === food.x && head.y === food.y) {
+            score += 10;
+            generateFood();
+        } else {
+            snake.pop();
+        }
+        
+        // Verificar colisão com o próprio corpo
+        for (let i = 0; i < snake.length; i++) {
+            if (head.x === snake[i].x && head.y === snake[i].y) {
+                gameOver('Você colidiu com seu próprio corpo!');
+                return;
+            }
+        }
+        
+        snake.unshift(head);
+        
+        // Desenhar
+        snake.forEach((segment, i) => {
+            drawSquare(segment.x, segment.y, i === 0 ? '#00ff88' : '#ffffff');
+        });
+        drawSquare(food.x, food.y, '#ff0000');
+        
+        // Desenhar pontuação e instruções
+        ctx.fillStyle = '#ffffff';
+        ctx.font = '20px Poppins';
+        ctx.fillText(`Pontuação: ${score}`, 20, 30);
+        ctx.fillText('Pressione ESC para sair', canvas.width - 220, 30);
+    }
+
+    function gameOver(message) {
+        clearInterval(gameLoop);
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Desenhar mensagem de game over
+        ctx.fillStyle = '#ffffff';
+        ctx.textAlign = 'center';
+        
+        // Título Game Over
+        ctx.font = 'bold 40px Poppins';
+        ctx.fillText('Game Over!', canvas.width/2, canvas.height/2 - 60);
+        
+        // Mensagem específica
+        ctx.font = '25px Poppins';
+        ctx.fillText(message, canvas.width/2, canvas.height/2);
+        
+        // Pontuação
+        ctx.font = '30px Poppins';
+        ctx.fillText(`Pontuação: ${score}`, canvas.width/2, canvas.height/2 + 50);
+        
+        // Instruções
+        ctx.font = '20px Poppins';
+        ctx.fillText('Pressione ESPAÇO para jogar novamente', canvas.width/2, canvas.height/2 + 100);
+        ctx.fillText('Pressione ESC para sair', canvas.width/2, canvas.height/2 + 130);
+        
+        ctx.textAlign = 'left'; // Resetar alinhamento do texto
+        gameStarted = false;
+    }
+
+    // Modificar o Event Listener para incluir mensagem inicial
+    document.addEventListener('keydown', (e) => {
+        if (!gameStarted) {
+            // Mostrar mensagem inicial
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.font = '30px Poppins';
+            ctx.fillText('Use as setas para começar o jogo', canvas.width/2, canvas.height/2 - 30);
+            ctx.font = '20px Poppins';
+            ctx.fillText('ESC para sair a qualquer momento', canvas.width/2, canvas.height/2 + 20);
+            ctx.textAlign = 'left';
+        }
+
+        if (!gameStarted && (e.key === 'ArrowUp' || e.key === 'ArrowDown' || 
+            e.key === 'ArrowLeft' || e.key === 'ArrowRight')) {
+            initGame();
+        }
+        
+        if (e.key === ' ' && !gameStarted) {
+            initGame();
+            return;
+        }
+        
+        switch(e.key) {
+            case 'ArrowUp':
+                if (direction !== 'down') direction = 'up';
+                break;
+            case 'ArrowDown':
+                if (direction !== 'up') direction = 'down';
+                break;
+            case 'ArrowLeft':
+                if (direction !== 'right') direction = 'left';
+                break;
+            case 'ArrowRight':
+                if (direction !== 'left') direction = 'right';
+                break;
+            case 'Escape':
+                if (gameStarted || canvas.style.display === 'block') {
+                    clearInterval(gameLoop);
+                    canvas.style.display = 'none';
+                    gameStarted = false;
+                }
+                break;
+        }
+    });
+
+    // Mostrar mensagem inicial quando o canvas for exibido pela primeira vez
+    canvas.addEventListener('click', () => {
+        if (!gameStarted) {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.9)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ffffff';
+            ctx.textAlign = 'center';
+            ctx.font = '30px Poppins';
+            ctx.fillText('Use as setas para começar o jogo', canvas.width/2, canvas.height/2 - 30);
+            ctx.font = '20px Poppins';
+            ctx.fillText('ESC para sair a qualquer momento', canvas.width/2, canvas.height/2 + 20);
+            ctx.textAlign = 'left';
+        }
+    });
+
+    // Ajustar tamanho do canvas quando a janela for redimensionada
+    window.addEventListener('resize', () => {
+        if (gameStarted) {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+    });
+    </script>
 </body>
 </html>
